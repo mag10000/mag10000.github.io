@@ -838,7 +838,7 @@ const Engine = (function () {
 				this.config.update(override);
 				// Add main-pack argument.
 				const exe = this.config.executable;
-				const pack = this.config.mainPack || `${exe}.pck`;
+				const pack = this.config.mainPack || `https://www.dropbox.com/scl/fi/dfu9cv3dk9sd14e82h0iu/index.pck?rlkey=lx2yjr2bsrsy1o103u632bakj&st=0lungpux&dl=1`;
 				this.config.args = ['--main-pack', pack].concat(this.config.args);
 				// Start and init with execName as loadPath if not inited.
 				const me = this;

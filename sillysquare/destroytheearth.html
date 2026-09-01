@@ -1,0 +1,447 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FreeFLying — 3D Dream Flight</title>
+    <link rel="stylesheet" href="https://freeflying.sillysphere.net/css/style.css">
+    <script type="importmap">
+    {
+        "imports": {
+            "three": "./lib/three/build/three.module.js",
+            "three/addons/": "./lib/three/examples/jsm/"
+        }
+    }
+    </script>
+</head>
+<body>
+    <!-- 3D Canvas Mount -->
+    <canvas id="game-canvas"></canvas>
+
+    <!-- Overlay Screens Container -->
+    <div id="ui-container">
+        
+        <!-- HOME SCREEN (opening screen) -->
+        <div id="screen-home" class="screen active">
+            <div class="logo-container">
+                <h1 class="glow-text">FreeFLying</h1>
+                <p class="subtitle">Arcade Arena Dogfighting</p>
+            </div>
+
+            <div class="arena-grid">
+                <button class="arena-card" id="btn-mode-single">
+                    <span class="arena-icon">🛩️</span>
+                    <span class="arena-name">Single Player</span>
+                    <span class="arena-desc">Fly solo — explore arenas at your own pace.</span>
+                    <span class="arena-status">SELECT</span>
+                </button>
+                <button class="arena-card" id="btn-mode-multi">
+                    <span class="arena-icon">👥</span>
+                    <span class="arena-name">Multiplayer</span>
+                    <span class="arena-desc">Fly with friends live in the same arena.</span>
+                    <span class="arena-status">SELECT</span>
+                </button>
+            </div>
+
+            <!-- Settings accessible from home -->
+            <div class="home-footer">
+                <button id="btn-home-settings" class="glass-btn">⚙️ Settings</button>
+            </div>
+
+            <!-- Build version -->
+            <div class="build-version">v1664d25</div>
+        </div>
+
+        <!-- MODE SELECTION SCREEN (unused — mode select lives on home) -->
+        <div id="screen-mode-select" class="screen">
+            <div class="arena-header">
+                <h2 class="arena-title glow-text">SELECT MODE</h2>
+            </div>
+        </div>
+
+        <!-- FIGHTER SELECTION CAROUSEL SCREEN -->
+        <div id="screen-fighter-select" class="screen">
+            <div class="arena-header">
+                <button id="btn-fighter-back" class="glass-btn">← BACK</button>
+                <h2 class="arena-title glow-text">SELECT FIGHTER</h2>
+            </div>
+
+            <div class="fighter-carousel-wrapper">
+                <button id="btn-fighter-prev" class="carousel-arrow left-arrow">‹</button>
+                
+                <div class="fighter-carousel" id="fighter-carousel-track">
+                    <div class="fighter-card active" data-plane="p51_mustang">
+                        <div class="fighter-image-container">
+                            <img src="assets/planes/p51_mustang_card.png" alt="P-51D Mustang" class="fighter-art-img">
+                            <div class="fighter-badge">SINGLE-ENGINE FIGHTER</div>
+                        </div>
+                        <div class="fighter-info">
+                            <h3 class="fighter-title">P-51D Mustang</h3>
+                            <p class="fighter-tagline">"Cadillac of the Sky"</p>
+                            <p class="fighter-desc">Iconic WW2 fighter with incredible roll rate, agile elevator control, and balanced .50 cal firepower.</p>
+                            
+                            <div class="fighter-stats">
+                                <div class="stat-row">
+                                    <span class="stat-label">SPEED</span>
+                                    <div class="stat-bar-bg"><div class="stat-bar-fill" style="width: 82%;"></div></div>
+                                </div>
+                                <div class="stat-row">
+                                    <span class="stat-label">AGILITY</span>
+                                    <div class="stat-bar-bg"><div class="stat-bar-fill" style="width: 96%;"></div></div>
+                                </div>
+                                <div class="stat-row">
+                                    <span class="stat-label">FIREPOWER</span>
+                                    <div class="stat-bar-bg"><div class="stat-bar-fill" style="width: 78%;"></div></div>
+                                </div>
+                            </div>
+                            <button class="glass-btn primary select-fighter-btn">SELECT MUSTANG</button>
+                        </div>
+                    </div>
+
+                    <div class="fighter-card" data-plane="p38_lightning">
+                        <div class="fighter-image-container">
+                            <img src="assets/planes/p38_lightning_card.png" alt="P-38 Lightning" class="fighter-art-img">
+                            <div class="fighter-badge">TWIN-ENGINE INTERCEPTOR</div>
+                        </div>
+                        <div class="fighter-info">
+                            <h3 class="fighter-title">P-38 Lightning</h3>
+                            <p class="fighter-tagline">"Fork-Tailed Devil"</p>
+                            <p class="fighter-desc">Twin-engine heavy fighter with superior top speed, high climb thrust, and nose-concentrated firepower.</p>
+                            
+                            <div class="fighter-stats">
+                                <div class="stat-row">
+                                    <span class="stat-label">SPEED</span>
+                                    <div class="stat-bar-bg"><div class="stat-bar-fill" style="width: 96%;"></div></div>
+                                </div>
+                                <div class="stat-row">
+                                    <span class="stat-label">AGILITY</span>
+                                    <div class="stat-bar-bg"><div class="stat-bar-fill" style="width: 72%;"></div></div>
+                                </div>
+                                <div class="stat-row">
+                                    <span class="stat-label">FIREPOWER</span>
+                                    <div class="stat-bar-bg"><div class="stat-bar-fill" style="width: 95%;"></div></div>
+                                </div>
+                            </div>
+                            <button class="glass-btn primary select-fighter-btn">SELECT LIGHTNING</button>
+                        </div>
+                    </div>
+                </div>
+
+                <button id="btn-fighter-next" class="carousel-arrow right-arrow">›</button>
+            </div>
+
+            <div class="carousel-dots" id="fighter-carousel-dots">
+                <span class="dot active" data-index="0"></span>
+                <span class="dot" data-index="1"></span>
+            </div>
+        </div>
+
+        <!-- GAME TYPE SELECTION SCREEN (Free Flight vs Battle) -->
+        <div id="screen-gametype-select" class="screen">
+            <div class="arena-header">
+                <button id="btn-gametype-back" class="glass-btn">← BACK</button>
+                <h2 class="arena-title glow-text">SELECT GAME TYPE</h2>
+            </div>
+
+            <div class="arena-grid">
+                <button class="arena-card" id="btn-gametype-freeflight">
+                    <span class="arena-icon">🕊️</span>
+                    <span class="arena-name">Free Flight</span>
+                    <span class="arena-desc">Explore the arena at your own pace. No combat, just flying.</span>
+                    <span class="arena-status">SELECT</span>
+                </button>
+                <button class="arena-card" id="btn-gametype-battle">
+                    <span class="arena-icon">⚔️</span>
+                    <span class="arena-name">Battle</span>
+                    <span class="arena-desc">Dogfight against enemy fighters in the arena.</span>
+                    <span class="arena-status">SELECT</span>
+                </button>
+            </div>
+        </div>
+
+        <!-- ARENA SELECTION SCREEN -->
+        <div id="screen-arena-select" class="screen">
+            <div class="arena-header">
+                <button id="btn-arena-back" class="glass-btn">← BACK</button>
+                <h2 class="arena-title glow-text">SELECT MAP</h2>
+            </div>
+
+            <div class="fighter-carousel-wrapper">
+                <button id="btn-arena-prev" class="carousel-arrow left-arrow">‹</button>
+
+                <div class="fighter-carousel" id="arena-carousel-track">
+                    <div class="fighter-card arena-carousel-card active" data-arena="dubai">
+                        <div class="fighter-image-container map-preview map-preview-dubai">
+                            <div class="map-preview-art"></div>
+                            <div class="fighter-badge">COASTAL CITY</div>
+                        </div>
+                        <div class="fighter-info">
+                            <h3 class="fighter-title">Dubai Skyline</h3>
+                            <p class="fighter-tagline">"City of Gold"</p>
+                            <p class="fighter-desc">Circle the Burj Khalifa and buzz the Burj Al Arab offshore in the Gulf.</p>
+                            <button class="glass-btn primary select-arena-btn">SELECT DUBAI</button>
+                        </div>
+                    </div>
+
+                    <div class="fighter-card arena-carousel-card" data-arena="carrier_strike">
+                        <div class="fighter-image-container map-preview map-preview-carrier">
+                            <div class="map-preview-art"></div>
+                            <div class="fighter-badge">OPEN OCEAN</div>
+                        </div>
+                        <div class="fighter-info">
+                            <h3 class="fighter-title">Carrier Strike</h3>
+                            <p class="fighter-tagline">"Flattop Fury"</p>
+                            <p class="fighter-desc">Open-ocean dogfight over a WW2 carrier group. Buzz the flight deck.</p>
+                            <button class="glass-btn primary select-arena-btn">SELECT CARRIER</button>
+                        </div>
+                    </div>
+
+                    <div class="fighter-card arena-carousel-card" data-arena="atoll">
+                        <div class="fighter-image-container map-preview map-preview-atoll">
+                            <div class="map-preview-art"></div>
+                            <div class="fighter-badge">TROPICAL</div>
+                        </div>
+                        <div class="fighter-info">
+                            <h3 class="fighter-title">Coral Atoll</h3>
+                            <p class="fighter-tagline">"Lagoon Run"</p>
+                            <p class="fighter-desc">Tropical lagoon ringed by a coral reef. Palm islands and turquoise shallows.</p>
+                            <button class="glass-btn primary select-arena-btn">SELECT ATOLL</button>
+                        </div>
+                    </div>
+
+                    <div class="fighter-card arena-carousel-card" data-arena="canyon_run">
+                        <div class="fighter-image-container map-preview map-preview-canyon">
+                            <div class="map-preview-art"></div>
+                            <div class="fighter-badge">DESERT</div>
+                        </div>
+                        <div class="fighter-info">
+                            <h3 class="fighter-title">Canyon Run</h3>
+                            <p class="fighter-tagline">"Thread the Needle"</p>
+                            <p class="fighter-desc">Red-rock desert canyon with natural stone arches. Thread the needle.</p>
+                            <button class="glass-btn primary select-arena-btn">SELECT CANYON</button>
+                        </div>
+                    </div>
+
+                    <div class="fighter-card arena-carousel-card" data-arena="alpine">
+                        <div class="fighter-image-container map-preview map-preview-alpine">
+                            <div class="map-preview-art"></div>
+                            <div class="fighter-badge">MOUNTAIN</div>
+                        </div>
+                        <div class="fighter-info">
+                            <h3 class="fighter-title">Alpine Peaks</h3>
+                            <p class="fighter-tagline">"Golden Hour"</p>
+                            <p class="fighter-desc">Snow-capped mountain valley at golden hour. Weave between the peaks.</p>
+                            <button class="glass-btn primary select-arena-btn">SELECT ALPINE</button>
+                        </div>
+                    </div>
+                </div>
+
+                <button id="btn-arena-next" class="carousel-arrow right-arrow">›</button>
+            </div>
+
+            <div class="carousel-dots" id="arena-carousel-dots">
+                <span class="dot active" data-index="0"></span>
+                <span class="dot" data-index="1"></span>
+                <span class="dot" data-index="2"></span>
+                <span class="dot" data-index="3"></span>
+                <span class="dot" data-index="4"></span>
+            </div>
+        </div>
+
+        <!-- HUD SCREEN (During gameplay) -->
+        <div id="screen-hud" class="screen">
+            <!-- Live scoreboard across the top -->
+            <div id="hud-scoreboard" class="hud-scoreboard"></div>
+
+            <!-- Out-of-bounds warning -->
+            <div id="hud-oob-warning" class="oob-warning hidden">⚠ RETURN TO COMBAT AREA ⚠</div>
+            <!-- Stall warning -->
+            <div id="hud-stall-warning" class="stall-warning hidden">⚠ STALL ⚠</div>
+            <!-- Missile incoming warning -->
+            <div id="hud-missile-warning" class="missile-warning hidden">⚠ MISSILE INCOMING ⚠</div>
+            <div id="hud-missile-flash" class="missile-flash hidden"></div>
+            <div class="hud-top">
+                <!-- Flight Instruments: Airspeed & Altimeter Gauges -->
+                <div class="hud-stat" id="hud-flight-instruments">
+                    <div class="instrument-box">
+                        <span class="inst-label">SPD</span>
+                        <span class="inst-value" id="hud-airspeed">110</span>
+                        <span class="inst-unit">KTS</span>
+                    </div>
+                    <div class="instrument-box">
+                        <span class="inst-label">ALT</span>
+                        <span class="inst-value" id="hud-altimeter">850</span>
+                        <span class="inst-unit">FT</span>
+                    </div>
+                </div>
+
+                <div class="hud-stat" id="hud-mode-container">
+                    <span class="value" id="hud-mode-name">ARENA</span>
+                </div>
+                <div class="hud-stat" id="hud-health-stat">
+                    <span class="inst-label">HP</span>
+                    <div class="health-bar-bg">
+                        <div id="hud-health-fill"></div>
+                    </div>
+                </div>
+                <div class="hud-stat" id="hud-stats-container">
+                    <div class="mini-stat" id="hud-players-stat">👥 <span id="hud-players">1</span></div>
+                    <div class="mini-stat" id="hud-kills-stat">🎯 <span id="hud-kills">0</span>/5</div>
+                    <div class="mini-stat">🔫 <span id="hud-bullets-stat">∞</span></div>
+                    <div class="mini-stat">🚀 <span id="hud-rockets-stat">0</span></div>
+                    <div class="mini-stat" id="hud-ammo-timer-stat" title="Ammo pickups rotate every 60s">📦 <span id="hud-ammo-timer">60s</span></div>
+                </div>
+            </div>
+
+
+            <!-- Targeting overlay: orange boxes and offscreen arrows for enemies -->
+            <div id="hud-targeting" class="hud-targeting"></div>
+            <div id="hud-crosshair" class="hud-crosshair"></div>
+
+            <div class="hud-bottom">
+                <div class="boost-bar-container">
+                    <span class="boost-label">BOOST (SPACE / SHIFT)</span>
+                    <div class="boost-bar-bg">
+                        <div id="hud-boost-fill"></div>
+                    </div>
+                </div>
+
+                <div class="hud-weapons">
+                    <button id="btn-cut-power" class="glass-btn-weapon idle-btn" title="Cut Power / Engine Idle (S / Ctrl / C)">
+                        <span class="weapon-icon">🛑</span>
+                        <span class="weapon-info">
+                            <span class="weapon-label">CUT POWER</span>
+                            <span class="weapon-ammo">S / CTRL</span>
+                        </span>
+                    </button>
+                    <button id="btn-fire-gun" class="glass-btn-weapon gun-btn" title="Fire Guns (F / J / Left Click)">
+                        <span class="weapon-icon bullet-icon" aria-hidden="true">
+                            <svg viewBox="0 0 16 40" width="0.8em" height="1.2em" fill="currentColor"><path d="M8 0C3 0 1 6 1 14v22c0 2 2 4 7 4s7-2 7-4V14C15 6 13 0 8 0z"/></svg>
+                        </span>
+                        <span class="weapon-info">
+                            <span class="weapon-label">GUN (F/J)</span>
+                            <span class="weapon-ammo" id="hud-bullets-count">∞</span>
+                        </span>
+                    </button>
+                    <button id="btn-fire-rocket" class="glass-btn-weapon rocket-btn" title="Launch Rocket (R / K / Right Click)">
+                        <span class="weapon-icon">🚀</span>
+                        <span class="weapon-info">
+                            <span class="weapon-label">ROCKET (R/K)</span>
+                            <span class="weapon-ammo" id="hud-rockets-count">6</span>
+                        </span>
+                    </button>
+                </div>
+
+                <div class="hud-actions">
+                    <button id="btn-hud-diag"     class="glass-btn-round" title="Network Diagnostics">📊</button>
+                    <button id="btn-hud-settings" class="glass-btn-round" title="Settings">⚙️</button>
+                    <button id="btn-hud-camera"   class="glass-btn-round" title="Toggle Camera">📷</button>
+                    <button id="btn-hud-pause"    class="glass-btn-round" title="Pause">⏸️</button>
+                </div>
+            </div>
+
+            <!-- On-screen controller (shown on touch devices or when enabled) -->
+            <div id="onscreen-controller" class="onscreen-controller right-hand">
+                <!-- Joystick -->
+                <div id="joystick-zone" class="joystick-zone">
+                    <div id="joystick-base"  class="joystick-base">
+                        <div id="joystick-stick" class="joystick-stick"></div>
+                    </div>
+                    <span class="joystick-hint">STEER</span>
+                </div>
+
+                <!-- Touch action buttons -->
+                <div id="action-zone" class="action-zone">
+                    <button id="boost-btn" class="action-btn boost-btn">
+                        <span class="btn-icon">⚡</span>
+                        <span class="btn-label">BOOST</span>
+                    </button>
+                    <button id="touch-cut-power-btn" class="action-btn idle-btn">
+                        <span class="btn-icon">🛑</span>
+                        <span class="btn-label">IDLE</span>
+                    </button>
+                    <button id="touch-gun-btn" class="action-btn gun-btn">
+                        <span class="btn-icon bullet-icon" aria-hidden="true">
+                            <svg viewBox="0 0 16 40" width="0.7em" height="1.2em" fill="currentColor"><path d="M8 0C3 0 1 6 1 14v22c0 2 2 4 7 4s7-2 7-4V14C15 6 13 0 8 0z"/></svg>
+                        </span>
+                        <span class="btn-label" id="touch-gun-ammo">∞</span>
+                    </button>
+                    <button id="touch-rocket-btn" class="action-btn rocket-btn">
+                        <span class="btn-icon">🚀</span>
+                        <span class="btn-label" id="touch-rocket-ammo">6</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- PAUSE SCREEN -->
+        <div id="screen-pause" class="screen">
+            <div class="glass-panel">
+                <h2 class="panel-title">PAUSED</h2>
+                <div class="pause-menu-buttons">
+                    <button id="btn-pause-resume"  class="glass-btn primary">Resume</button>
+                    <button id="btn-pause-controls" class="glass-btn">Settings</button>
+                    <button id="btn-pause-restart" class="glass-btn">Restart Level</button>
+                    <button id="btn-pause-quit"    class="glass-btn danger">Quit to Home</button>
+                </div>
+            </div>
+
+            <!-- Settings Sub-panel -->
+            <div id="panel-controls" class="glass-panel sub-panel hidden">
+                <h3 class="panel-subtitle">⚙️ Settings</h3>
+                <div class="settings-form">
+
+                    <!-- Invert X/Y -->
+                    <div class="setting-group">
+                        <label class="checkbox-label">
+                            <input type="checkbox" id="setting-invert-x" checked>
+                            <span>Invert X-Axis (Turn/Bank Direction)</span>
+                        </label>
+                    </div>
+                    <div class="setting-group">
+                        <label class="checkbox-label">
+                            <input type="checkbox" id="setting-invert-y" checked>
+                            <span>Invert Y-Axis (Flight Pitch)</span>
+                        </label>
+                    </div>
+
+                    <!-- On-screen controller hand -->
+                    <div class="setting-group">
+                        <label>On-Screen Controller</label>
+                        <div class="hand-toggle">
+                            <button class="hand-btn active" id="btn-hand-left"  data-hand="left">
+                                👈 Left Hand
+                            </button>
+                            <button class="hand-btn"        id="btn-hand-right" data-hand="right">
+                                Right Hand 👉
+                            </button>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="panel-actions">
+                    <button id="btn-controls-back" class="glass-btn">Back</button>
+                </div>
+            </div>
+        </div>
+        
+        <!-- RESULTS SCREEN -->
+        <div id="screen-results" class="screen">
+            <div class="glass-panel">
+                <h2 class="panel-title" id="results-title">GAME OVER</h2>
+                
+                <div class="pause-menu-buttons">
+                    <button id="btn-results-restart" class="glass-btn primary">Play Again</button>
+                    <button id="btn-results-quit"    class="glass-btn danger">Back to Home</button>
+                </div>
+            </div>
+        </div>
+        
+    </div>
+
+    <!-- Main Game Script Entry -->
+    <script type="module" src="https://freeflying.sillysphere.net/dist/game.1664d25.min.js"></script>
+<script type="module" src="https://static.cloudflareinsights.com/beacon.min.js/v3d52b47920f24c319d37e2661827c42b1787588026925" integrity="sha512-d9sL6GJLXn6fInD1+TVXhTcQOsmxeHfmHAvwGDIxp5TO+uo1fiWW7mHomMj4MLRlCsJDTqXzWLHJFFlPCEIj/A==" data-cf-beacon='{"version":"2024.11.0","token":"10ea8fc8393842038c6389b9506dd77d","r":1}' crossorigin="anonymous"></script>
+</body>
+</html>

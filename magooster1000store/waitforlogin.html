@@ -58,8 +58,10 @@ body {
 	const queryString = window.location.search;
 	const urlParams = new URLSearchParams(queryString);
 	const is_app = urlParams.get('app')
+	console.log("----------")
 	console.log(is_app)
-	if is_app {
+	console.log("----------")
+	if (is_app) {
 		app_div.style.display = "block";
 	}
 </script>

@@ -52,6 +52,18 @@ body {
 
 </head>
 <body>
+<script>
+	window.sendIpcMessage(JSON.stringify({action: "appcheck"));
+
+	window.onIpcMessage = function(msg) {
+	    console.log("Received from Godot:", msg);
+		switch (msg) {
+			case "appcheck":
+				window.sendIpcMessage(JSON.stringify({action: "showlogin"));
+		}
+	    // Handle the message...
+		};
+</script>
 <div class="container">
 	<h1 class="text">Login in top right corner.</h1>
 </div>

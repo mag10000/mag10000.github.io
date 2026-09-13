@@ -53,17 +53,16 @@ body {
 </head>
 <body>
 <script>
-	window.sendIpcMessage(JSON.stringify({action: "appcheck"));
-
-	window.onIpcMessage = function(msg) {
-	    console.log("Received from Godot:", msg);
-		switch (msg) {
-			case "appcheck":
-				window.sendIpcMessage(JSON.stringify({action: "showlogin"));
-		}
-	    // Handle the message...
-		};
+	var app_div = document.getElementById("myDIV");
+	app_div.style.display = "none";
+	const queryString = window.location.search;
+	const urlParams = new URLSearchParams(queryString);
+	const is_app = urlParams.get('app')
+	if is_app {
+		app_div.style.display = "block";
+	}
 </script>
+<div class="container" id="AppDiv">
 <div class="container">
 	<h1 class="text">Login in top right corner.</h1>
 </div>

@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <body style="background-color:#1a1525;">
-<title>Magooster1000 Tech|Home</title>
+<title>Magooster1000 Tech|Store</title>
 <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
 <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
 <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
@@ -52,6 +52,9 @@ body {
 
 </head>
 <body>
+<div class="container" id="AppDiv">
+	<p class="text">APP</p>
+</div>
 <div class="container">
 	<h1 class="text">Magooster1000 Store</h1>
 </div>
@@ -61,5 +64,21 @@ body {
 <div class="container">
 	<button class="buttons">Library</button>
 </div>
+<script>
+	var app_div = document.getElementById("AppDiv");
+	app_div.style.display = "none";
+	const queryString = window.location.search;
+	const urlParams = new URLSearchParams(queryString);
+	const is_app = urlParams.get('app')
+	console.log("----------")
+	console.log(is_app)
+	console.log("----------")
+	if (is_app == "true") {
+		console.log("its a true")
+		app_div.style.display = "block";
+	} else {
+  		console.log("its a false")
+	}
+</script>
 </body>
 </html>

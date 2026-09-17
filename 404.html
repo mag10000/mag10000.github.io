@@ -61,10 +61,34 @@ h1 {
 	<h1 class="text">Trying to go to pages that don't exist?, come on!</h1>
 </div>
 <div class="container">
-	<button class="buttons" onclick="window.location.href = 'https://mag10000.github.io/home';">Home</button>
+	<button class="buttons" onclick="click();">Home</button>
 </div>
 <div class="container">
 	<h3 class="text">404, ooo that's a good secret agent name!</h1>
 </div>
+<script>
+	var app_div = document.getElementById("AppDiv");
+	app_div.style.display = "none";
+	const queryString = window.location.search;
+	const urlParams = new URLSearchParams(queryString);
+	const is_app = urlParams.get('app')
+	console.log("----------")
+	console.log(is_app)
+	console.log("----------")
+	if (is_app == "true") {
+		console.log("its a true")
+		app_div.style.display = "block";
+	} else {
+  		console.log("its a false")
+	}
+
+	function click() {
+		if (is_app == "true") {
+			window.location = "mag10000.github.io/magooster1000store";
+		} else {
+			window.location = "mag10000.github.io/home";
+		}
+	}
+</script>
 </body>
 </html>

@@ -74,6 +74,15 @@ body {
   		console.log("its a false")
 	}
 </script>
-<script src="https://mag10000.github.io/magooster1000store/checkaccount.js" type="text/javascript" defer></script>
+<script>
+
+var app_div = document.getElementById("AppDiv");
+app_div.style.display = "none";
+const queryString = window.location.search;
+const urlParams = new URLSearchParams(queryString);
+const token = urlParams.get('token')
+console.log("Token: " + token)
+
+</script>
 </body>
 </html>

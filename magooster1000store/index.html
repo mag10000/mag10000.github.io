@@ -176,7 +176,7 @@ ul li {
                 });
 			const check_data = await check_response.json();
 			if (check_data.hasOwnProperty("player")){
-				let player_name = data.player.aliases.at(0).displayName
+				let player_name = check_data.player.aliases.at(0).displayName
 				document.getElementById('account_text').innerText = "Logged in as: " + player_name
 				
 	} else {

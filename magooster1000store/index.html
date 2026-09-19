@@ -159,7 +159,7 @@ ul li {
                  },
                   body: JSON.stringify({"refreshToken": refresh_token}),
                 });
-			const refresh_data = await response.json();
+			const refresh_data = await refresh_response.json();
 			refresh_token = refresh_data.refreshToken
 			session_token = refresh_data.sessionToken
             const check_response = await fetch('https://api.trytalo.com/v1/players/' + player_id, {
@@ -174,7 +174,7 @@ ul li {
                  },
                   
                 });
-			const check_data = await response.json();
+			const check_data = await check_response.json();
 			if (check_data.hasOwnProperty("player")){
 				let player_name = data.player.aliases.at(0).displayName
 				document.getElementById('account_text').innerText = "Logged in as: " + player_name

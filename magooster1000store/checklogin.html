@@ -81,6 +81,7 @@ p {
 				const alias_id = urlParams.get('alias')
 				const player_id = urlParams.get('player')
 				const session_token = urlParams.get('token')
+				const refresh_token = urlParams.get('refresh')
 				
                 const response = await fetch('https://api.trytalo.com/v1/players/' + player_id, {
                   method: 'GET',
@@ -108,6 +109,11 @@ p {
 				console.log(data.player.aliases.at(0).displayName)
 				let player_name = data.player.aliases.at(0).displayName
 				document.getElementById('main_text').innerText = "Welcome, " + player_name
+				if (localStorage) {
+					localStorage.setItem("storeAccount",JSON.stringify({"token":session_token,"refresh":refresh_token,"alias":alias_id,"player":player_id}))
+				} else {
+					console.log("Your account will not persist")
+				}
 				//document.location = "https://mag10000.github.io/magooster1000-s-purple/logged-in?id=" + data.sessionToken
 				}
                  		

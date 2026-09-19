@@ -105,7 +105,9 @@ p {
 				document.getElementById('error').innerText = "There is a problem with your account. :("
 				}
 			if (data.hasOwnProperty("player")){
-				console.log(data.player.aliases.at(0))
+				console.log(data.player.aliases.at(0).displayName)
+				let player_name = data.player.aliases.at(0).displayName
+				document.getElementById('error').innerText = player_name
 				//document.location = "https://mag10000.github.io/magooster1000-s-purple/logged-in?id=" + data.sessionToken
 				}
                  		

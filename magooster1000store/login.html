@@ -146,7 +146,7 @@ ul li {
   <li><a class="navtext" href="games">Games</a></li>
   <li><a class="navtext" href="library">Library</a></li>
   <li><a class="navtext" href="account">Account</a></li>
-  <li class="divli"><a class="navtext" href="login">Not logged in :(</a></li>
+  <li class="divli"><a class="navtext" href="login" id="account_text">Not logged in :(</a></li>
 </ul>
 
 
@@ -202,6 +202,7 @@ ul li {
 		var refresh_token = data.refreshToken
 		var alias = data.alias.id
         var player = data.alias.player.id
+				
 		
 		document.location = "https://mag10000.github.io/magooster1000store/checklogin?token=" + token + "&alias=" + alias + "&player=" + player + "&refresh=" + refresh_token
 				}
@@ -212,6 +213,53 @@ ul li {
 		}
 
 		}
+
+		if (localStorage) {
+			console.log(localStorage.getItem("storeAccount"))
+			var data = JSON.parse(localStorage.getItem("storeAccount"))
+			var alias_id = data.alias
+			var player_id = data.player
+			var session_token = data.token
+			var refresh_token = data.refresh 
+			
+			const refresh_response = await fetch('https://api.trytalo.com/v1/players/auth/refresh', {
+        	method: 'POST',
+            headers: {
+            		Authorization: "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOjIyNjgsImFwaSI6dHJ1ZSwiaWF0IjoxNzg5ODI0ODQ3fQ.xlfl7aFmnSWzcz7joyVnQzBjkFTA9yDpj8Ra_xCWpZI",
+                	'Content-Type': 'application/json',
+					'X-Talo-Player': player_id,
+					'X-Talo-Alias': alias_id,
+					'X-Talo-Session': session_token,
+					
+                 },
+                  body: JSON.stringify({"refreshToken": refresh_token}),
+                });
+			console.log(refresh_response)
+			const refresh_data = await refresh_response.json();
+			refresh_token = refresh_data.refreshToken
+			session_token = refresh_data.sessionToken
+			localStorage.setItem("storeAccount",JSON.stringify({"token":session_token,"refresh":refresh_token,"alias":alias_id,"player":player_id}))
+            const check_response = await fetch('https://api.trytalo.com/v1/players/' + player_id, {
+        	method: 'GET',
+            headers: {
+            		Authorization: "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOjIyNjgsImFwaSI6dHJ1ZSwiaWF0IjoxNzg5ODI0ODQ3fQ.xlfl7aFmnSWzcz7joyVnQzBjkFTA9yDpj8Ra_xCWpZI",
+                	'Content-Type': 'application/json',
+					'X-Talo-Player': player_id,
+					'X-Talo-Alias': alias_id,
+					'X-Talo-Session': session_token,
+					
+                 },
+                  
+                });
+			const check_data = await check_response.json();
+			if (check_data.hasOwnProperty("player")){
+				let player_name = check_data.player.aliases.at(0).displayName
+				document.getElementById('account_text').innerText = "Logged in as: " + player_name
+				
+	} else {
+			console.log("Your account will not persist")
+	}
+	}
 		
                
     button.addEventListener("click", login);

@@ -185,7 +185,7 @@ ul li {
                    Authorization: "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOjIyNjgsImFwaSI6dHJ1ZSwiaWF0IjoxNzg5ODI0ODQ3fQ.xlfl7aFmnSWzcz7joyVnQzBjkFTA9yDpj8Ra_xCWpZI",
                     'Content-Type': 'application/json',
                  },
-                  body: JSON.stringify({identifier : document.getElementById("username").value,password : document.getElementById("password").value,withRefresh : true}),
+                  body: JSON.stringify({identifier : document.getElementById("username").value,password : document.getElementById("password").value,withRefresh : "true"}),
                 });
 
                 const data = await response.json();

@@ -163,6 +163,7 @@ ul li {
 			const refresh_data = await refresh_response.json();
 			refresh_token = refresh_data.refreshToken
 			session_token = refresh_data.sessionToken
+			localStorage.setItem("storeAccount",JSON.stringify({"token":session_token,"refresh":refresh_token,"alias":alias_id,"player":player_id}))
             const check_response = await fetch('https://api.trytalo.com/v1/players/' + player_id, {
         	method: 'GET',
             headers: {

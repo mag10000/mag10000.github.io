@@ -147,6 +147,7 @@ ul li {
   <li><a class="navtext" href="library">Library</a></li>
   <li><a class="navtext" href="account">Account</a></li>
   <li class="divli"><a class="navtext" href="login" id="account_text">Not logged in :(</a></li>
+  <li class="divli"><a class="navtext" href="logout" id="logout" style="color: red; display: none;">Logout</a></li>
 </ul>
 
 
@@ -255,6 +256,7 @@ ul li {
 			if (check_data.hasOwnProperty("player")){
 				let player_name = check_data.player.aliases.at(0).displayName
 				document.getElementById('account_text').innerText = "Logged in as: " + player_name
+				document.getElementById("logout").style.display = "block";
 				
 	} else {
 			console.log("Your account will not persist")

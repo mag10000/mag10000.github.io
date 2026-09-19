@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html>
+<body style="background-color:#1a1525;">
+<title>Store|Signup</title>
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/site.webmanifest">
+<head>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Noto Sans">
+<style>
+body {
+  font-family: "Noto Sans", sans-serif;
+}
+</style>
+</head>
+<head>
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+<style>
+.buttondownload {
+  border: 2px solid #8451b6;
+  background-color : #3b384a;
+  color: white;
+  padding: 15px 32px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  margin: 2px 2px;
+  cursor: pointer;
+  border-bottom-right-radius: 8px;
+  border-bottom-left-radius: 8px;
+  border-top-right-radius: 8px;
+  border-top-left-radius: 8px;
+  font-family: inherit	
+  
+}
+
+.buttondownload:hover {
+  background-color: #100e16;
+}
+
+h1 {
+  text-align: center;
+}
+
+p {
+  text-align: center;
+}
+
+buttondownload {
+  button-align: center;
+}
+
+.container {
+  display: flex; /* Enables CSS flexbox */
+  justify-content: center; /* Centers horizontally */
+  align-items: center; /* Centers vertically */
+  /*height: 6vh; /* Full height to demonstrate vertical centering */
+}
+
+button {
+  padding: 10px 20px;
+}
+
+.inputlogin {
+  width : 130px;
+  border: 2px solid #8451b6;
+  background-color : #3b384a;
+  color: white;
+  padding: 15px 32px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  margin: 2px 2px;
+  border-bottom-right-radius: 8px;
+  border-bottom-left-radius: 8px;
+  border-top-right-radius: 8px;
+  border-top-left-radius: 8px;
+  font-family: inherit;
+  transition: width 0.4s ease-in-out;
+  
+}
+.inputlogin:focus {
+  background-color: #100e16;
+}
+
+.inputlogin:focus {
+  width: 40%;
+}
+	
+.navtext {
+  margin: 6px;
+}
+
+ul {
+  align-items: center;
+  display: block;
+  list-style-type: none;
+  overflow: hidden;
+  border: 2px solid #8451b6;
+  background-color : #3b384a;
+  color: white;
+  padding: 0;
+  text-align: center;
+  text-decoration: none;
+  display: iblock;
+  font-size: 16px;
+  margin: 0;
+  cursor: pointer;
+  border-bottom-right-radius: 8px;
+  border-bottom-left-radius: 8px;
+  border-top-right-radius: 8px;
+  border-top-left-radius: 8px;
+  font-family: inherit	
+}
+
+ul li {
+  float: left;
+}
+
+.divli {
+  float: right;
+}
+	
+.navtext {
+  display: block;
+  color: white;
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+}
+
+.navtext:hover {
+  background-color: #100e16;
+}
+</style>
+
+
+<ul id="navbar">
+  <li><a class="navtext" href="index">Home</a></li>
+  <li><a class="navtext" href="news">News</a></li>
+  <li><a class="navtext" href="games">Games</a></li>
+  <li><a class="navtext" href="library">Library</a></li>
+  <li><a class="navtext" href="account">Account</a></li>
+  <li class="divli"><a class="navtext" href="login" id="account_text">Not logged in :(</a></li>
+  <li class="divli"><a class="navtext" href="logout" id="logout" style="color: red; display: none;">Logout</a></li>
+</ul>
+
+
+<div class="container">
+<input
+  type="text"
+  class="input inputlogin"
+  id="username"
+  name="name"
+  required
+  minlength="0"
+  placeholder="Username"
+  maxlength="-1" />
+</div>
+<div class="container">
+<input
+  type="text"
+  class="input inputlogin"
+  id="email"
+  name="name"
+  required
+  minlength="0"
+  placeholder="Email"
+  maxlength="-1" />
+</div>
+<div class="container"><div class="cf-turnstile" data-sitekey="0x4AAAAAADgxYBFBPDiZx6yi" data-theme="light" data-size="normal" data-callback="onSuccess" id="turnstilepurpleauth"></div></div>
+<div class="container">
+<input
+  type="password"
+  class="input inputlogin"
+  id="password"
+  name="name"
+  required
+  minlength="0"
+  placeholder="Password"
+  maxlength="-1" />
+</div>
+<div class="container">
+<button type="button" class="button buttondownload"><b>Sign Up</b></button>
+</div>
+<p><a  style="color:MediumSlateBlue;" href="login">Wrong option? Login to An account.</a></p>
+<script type="module">
+	const button = document.querySelector(".buttondownload");
+                async function login() {
+                const response = await fetch('https://api.trytalo.com/v1/players/auth/register', {
+                  method: 'POST',
+                  headers: {
+                   Authorization: "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOjIyNjgsImFwaSI6dHJ1ZSwiaWF0IjoxNzg5ODI0ODQ3fQ.xlfl7aFmnSWzcz7joyVnQzBjkFTA9yDpj8Ra_xCWpZI",
+                    'Content-Type': 'application/json',
+                 },
+                  body: JSON.stringify({identifier : document.getElementById("username").value,password : document.getElementById("password").value, email : document.getElementById("email").value, "verificationEnabled": false,"withRefresh": true }),
+                });
+
+                const data = await response.json();
+                console.log(data);
+                if (data.hasOwnProperty("message")){
+                 	document.getElementById('error').innerText = data.message.replace("identifier","username").replace("Identifier","Username")
+                }
+  		else {
+			if (data.hasOwnProperty("verificationRequired")){
+					document.getElementById('error').innerText = "There is a problem with your account"
+				}
+			if (data.hasOwnProperty("sessionToken")){
+        var token = data.sessionToken
+		var refresh_token = data.refreshToken
+		var alias = data.alias.id
+        var player = data.alias.player.id
+				
+		  document.location = "https://mag10000.github.io/magooster1000store/checklogin?token=" + token + "&alias=" + alias + "&player=" + player + "&refresh=" + refresh_token
+		
+				}
+                 		
+                		
+                	
+
+		}
+
+		}
+  
+
+  //document.location = "https://mag10000.github.io/magooster1000store/checklogin?token=" + token + "&alias=" + alias + "&player=" + player + "&refresh=" + refresh_token
+		if (localStorage) {
+			if (localStorage.getItem("storeAccount") == null) {
+				console.log("no login data")
+			} else {
+			console.log(localStorage.getItem("storeAccount"))
+			var data = JSON.parse(localStorage.getItem("storeAccount"))
+			var alias_id = data.alias
+			var player_id = data.player
+			var session_token = data.token
+			var refresh_token = data.refresh 
+			
+			const refresh_response = await fetch('https://api.trytalo.com/v1/players/auth/refresh', {
+        	method: 'POST',
+            headers: {
+            		Authorization: "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOjIyNjgsImFwaSI6dHJ1ZSwiaWF0IjoxNzg5ODI0ODQ3fQ.xlfl7aFmnSWzcz7joyVnQzBjkFTA9yDpj8Ra_xCWpZI",
+                	'Content-Type': 'application/json',
+					'X-Talo-Player': player_id,
+					'X-Talo-Alias': alias_id,
+					'X-Talo-Session': session_token,
+					
+                 },
+                  body: JSON.stringify({"refreshToken": refresh_token}),
+                });
+			console.log(refresh_response)
+			const refresh_data = await refresh_response.json();
+			refresh_token = refresh_data.refreshToken
+			session_token = refresh_data.sessionToken
+			localStorage.setItem("storeAccount",JSON.stringify({"token":session_token,"refresh":refresh_token,"alias":alias_id,"player":player_id}))
+            const check_response = await fetch('https://api.trytalo.com/v1/players/' + player_id, {
+        	method: 'GET',
+            headers: {
+            		Authorization: "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOjIyNjgsImFwaSI6dHJ1ZSwiaWF0IjoxNzg5ODI0ODQ3fQ.xlfl7aFmnSWzcz7joyVnQzBjkFTA9yDpj8Ra_xCWpZI",
+                	'Content-Type': 'application/json',
+					'X-Talo-Player': player_id,
+					'X-Talo-Alias': alias_id,
+					'X-Talo-Session': session_token,
+					
+                 },
+                  
+                });
+			const check_data = await check_response.json();
+			if (check_data.hasOwnProperty("player")){
+				let player_name = check_data.player.aliases.at(0).displayName
+				document.getElementById('account_text').innerText = "Logged in as: " + player_name
+				document.getElementById("logout").style.display = "block";
+				
+	} else {
+			console.log("Your account will not persist")
+	}
+	}
+	}
+		
+               
+    button.addEventListener("click", login);
+</script>
+
+<p id="error" style="color:red;"></p>
+
+</body>
+</html>

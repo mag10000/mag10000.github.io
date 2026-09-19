@@ -141,6 +141,9 @@ ul li {
 	}
 
 	if (localStorage) {
+			if (localStorage.getItem("storeAccount") == null) {
+				console.log("no login data")
+			} else {
 			console.log(localStorage.getItem("storeAccount"))
 			var data = JSON.parse(localStorage.getItem("storeAccount"))
 			var alias_id = data.alias
@@ -185,6 +188,7 @@ ul li {
 				
 	} else {
 			console.log("Your account will not persist")
+	}
 	}
 	}
 </script>

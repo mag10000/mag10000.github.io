@@ -82,8 +82,8 @@ p {
 				const player_id = urlParams.get('player')
 				const session_token = urlParams.get('token')
 				
-                const response = await fetch('https://api.trytalo.com/v1/leaderboards/:lm/entries', {
-                  method: 'POST',
+                const response = await fetch('https://api.trytalo.com/v1/leaderboards/lm/entries', {
+                  method: 'GET',
                   headers: {
                 	Authorization: "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOjIyNjgsImFwaSI6dHJ1ZSwiaWF0IjoxNzg5ODI0ODQ3fQ.xlfl7aFmnSWzcz7joyVnQzBjkFTA9yDpj8Ra_xCWpZI",
                 	'Content-Type': 'application/json',

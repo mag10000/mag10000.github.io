@@ -159,6 +159,7 @@ ul li {
                  },
                   body: JSON.stringify({"refreshToken": refresh_token}),
                 });
+			console.log(refresh_response)
 			const refresh_data = await refresh_response.json();
 			refresh_token = refresh_data.refreshToken
 			session_token = refresh_data.sessionToken

@@ -60,7 +60,7 @@ p {
 	<p class="text">APP</p>
 </div>
 <div class="container">
-	<h1 class="text">Loading....</h1>
+	<h1 class="text" id="main_text">Loading....</h1>
 </div>
 <script type="module">
 	var app_div = document.getElementById("AppDiv");
@@ -104,8 +104,8 @@ p {
 			if (data.hasOwnProperty("verificationRequired")){
 				document.getElementById('error').innerText = "There is a problem with your account. :("
 				}
-			if (data.hasOwnProperty("sessionToken")){
-				console.log(data)
+			if (data.hasOwnProperty("player")){
+				console.log(data.player.aliases)
 				//document.location = "https://mag10000.github.io/magooster1000-s-purple/logged-in?id=" + data.sessionToken
 				}
                  		

@@ -101,7 +101,7 @@ ul li {
 </style>
 </head>
 <body>
-<ul>
+<ul id="navbar">
   <li><a class="navtext" href="">Home</a></li>
   <li><a class="navtext" href="news">News</a></li>
   <li><a class="navtext" href="games">Games</a></li>
@@ -133,6 +133,8 @@ ul li {
 	if (is_app == "true") {
 		console.log("its a true")
 		app_div.style.display = "block";
+		var navbar = document.getElementById("navbar");
+		navbar.style.display = "none";
 	} else {
   		console.log("its a false")
 	}

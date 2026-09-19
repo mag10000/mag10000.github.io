@@ -199,8 +199,17 @@ ul li {
 				}
 			if (data.hasOwnProperty("sessionToken")){
         var token = data.sessionToken
+		var refresh_token = data.refreshToken
 		var alias = data.alias.id
         var player = data.alias.player.id
+
+		if (localStorage) {
+			localStorage.setItem("storeAccount",JSON.stringify({"token":token,"refresh":refresh_token,"alias":alias,"player":player}))
+			
+		} else {
+			console.log("Your account will not persist")
+		}
+		
 		document.location = "https://mag10000.github.io/magooster1000store/checklogin?token=" + token + "&alias=" + alias + "&player=" + player
 				}
                  		

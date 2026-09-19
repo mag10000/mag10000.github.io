@@ -198,10 +198,10 @@ ul li {
 					document.getElementById('error').innerText = "There is a problem with your account"
 				}
 			if (data.hasOwnProperty("sessionToken")){
-        console.log(data.sessionToken)
-		console.log(data.alias.id)
-        console.log(data.alias.player.id)
-				//document.location = "https://mag10000.github.io/magooster1000-s-purple/checklogin?id=" + data.sessionToken
+        var token = data.sessionToken
+		var alias = data.alias.id
+        var player = data.alias.player.id
+		document.location = "https://mag10000.github.io/magooster1000-s-purple/checklogin?token=" + token + "&alias=" + alias + "&player=" + player
 				}
                  		
                 		

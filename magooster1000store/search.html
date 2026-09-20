@@ -209,7 +209,7 @@ ul li {
   		console.log("its a false")
 	}
 
-	const search_response = await fetch('https://api.trytalo.com/v1/players/auth/refresh?search=' + query, {
+	const search_response = await fetch('https://api.trytalo.com/v1/game-channels?search=' + query, {
     method: 'GET',
     headers: {
             		Authorization: "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOjIyNjgsImFwaSI6dHJ1ZSwiaWF0IjoxNzg5ODI0ODQ3fQ.xlfl7aFmnSWzcz7joyVnQzBjkFTA9yDpj8Ra_xCWpZI",

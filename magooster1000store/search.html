@@ -216,8 +216,10 @@ ul li {
                 	'Content-Type': 'application/json',
                  },
                 });
-	console.log(search_response)
 	const search_data = await search_response.json();
+	console.log("---------------")
+	console.log(search_data)
+	console.log("---------------")
 	
 	if (localStorage) {
 			if (localStorage.getItem("storeAccount") == null) {

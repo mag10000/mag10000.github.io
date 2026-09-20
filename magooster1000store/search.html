@@ -199,8 +199,8 @@ ul li {
 	console.log(is_app)
 	console.log("----------")
   let query = urlParams.get('search')
-  query = query.toLowerCase()
   document.getElementById('bigtext').innerText = "Search - " + query
+  query = query.toLowerCase()
 	if (is_app == "true") {
 		console.log("its a true")
 		app_div.style.display = "block";

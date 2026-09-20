@@ -234,11 +234,11 @@ ul li {
 		const gamediv = document.createElement("div");
 		gamediv.id = "gamediv" + game_name;
 		gamediv.className = "container";
-		gamediv.textContent = game_name;
+		gamediv.textContent = game_name + "  ";
 		placetoadd.appendChild(gamediv);
 		
 		const button = document.createElement("button");
-		button.id = "gamebutton" + game_name + "  ";
+		button.id = "gamebutton" + game_name;
 		button.className = "buttons";
 		button.innerText = "Open";
 		button.onClick = "document.location = 'searchpage?id=" + game_id + "'";

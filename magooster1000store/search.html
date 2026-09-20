@@ -222,11 +222,11 @@ ul li {
 	console.log(search_data)
 	console.log("---------------")
 
-	for (i in search_data.channels) {
-		let game_name = i.name
-		let props = i.props
-		let dev_id = i.owner.id
-		let game_id = i.id
+	for (let game in search_data.channels) {
+		let game_name = search_data.channels[game].name
+		let props = search_data.channels[game].props
+		let dev_id = search_data.channels[game].owner.id
+		let game_id = search_data.channels[game].id
 
 		const placetoadd = document.getElementById("body");
 		const gamediv = document.createElement("div");

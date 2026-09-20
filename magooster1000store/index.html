@@ -98,6 +98,46 @@ ul li {
 .navtext:hover {
   background-color: #100e16;
 }
+
+.ul input[type=text] {
+  padding: 6px;
+  margin-top: 8px;
+  font-size: 17px;
+  border: none;
+}
+
+.ul .search-container button {
+  float: right;
+  padding: 6px 10px;
+  margin-top: 8px;
+  margin-right: 16px;
+  background: #ddd;
+  font-size: 17px;
+  border: none;
+  cursor: pointer;
+}
+
+.ul .search-container button:hover {
+  background: #ccc;
+}
+
+@media screen and (max-width: 600px) {
+  .ul .search-container {
+    float: none;
+  }
+  .ul a, .ul input[type=text], .ul .search-container button {
+    float: none;
+    display: block;
+    text-align: left;
+    width: 100%;
+    margin: 0;
+    padding: 14px;
+  }
+  .ul input[type=text] {
+    border: 1px solid #ccc;  
+  }
+}
+
 </style>
 </head>
 <body>
@@ -108,6 +148,12 @@ ul li {
   <li><a class="navtext" href="library">Library</a></li>
   <li><a class="navtext" href="account">Account</a></li>
   <li><a class="navtext" href="worldwide">Worldwide</a></li>
+  <div class="search-container">
+    <form action="/action_page.php">
+      <input type="text" placeholder="Search.." name="search">
+      <button type="submit"><i class="fa fa-search"></i></button>
+    </form>
+  </div>
   <li class="divli"><a class="navtext" href="login" id="account_text">Not logged in :(</a></li>
   <li class="divli"><a class="navtext" href="logout" id="logout" style="color: red; display: none;">Logout</a></li>
 </ul>

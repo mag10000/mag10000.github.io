@@ -238,7 +238,7 @@ ul li {
 		placetoadd.appendChild(gamediv);
 		
 		const button = document.createElement("button");
-		button.id = "gamebutton" + game_name;
+		button.id = String(game_id);
 		button.className = "buttons";
 		button.innerText = "Open";
 		button.addEventListener("click",open_url)
@@ -298,8 +298,8 @@ ul li {
 	}
 	}
 
-	function open_url(game_id) {
-		window.location = "gamepage?id=" + game_id
+	function open_url(data) {
+		window.location = "gamepage?id=" + data.srcElement.id
 	}
 </script>
 </body>

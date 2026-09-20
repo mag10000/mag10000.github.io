@@ -34,6 +34,7 @@ body {
   font-family: inherit	
 }
 
+
 .buttons:hover {
   background-color: #100e16;
 }
@@ -51,6 +52,33 @@ body {
 body {
   margin: 0;
   padding: 0;
+}
+
+.inputlogin {
+  width : 130px;
+  border: 2px solid #8451b6;
+  background-color : #3b384a;
+  color: white;
+  padding: 15px 32px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  margin: 2px 2px;
+  border-bottom-right-radius: 8px;
+  border-bottom-left-radius: 8px;
+  border-top-right-radius: 8px;
+  border-top-left-radius: 8px;
+  font-family: inherit;
+  transition: width 0.4s ease-in-out;
+  
+}
+.inputlogin:focus {
+  background-color: #100e16;
+}
+
+.inputlogin:focus {
+  width: 40%;
 }
 
 .navtext {
@@ -150,8 +178,7 @@ ul li {
   <li><a class="navtext" href="worldwide">Worldwide</a></li>
   <div class="search-container">
     <form action="/action_page.php">
-      <input type="text" placeholder="Search.." name="search">
-      <button type="submit"><i class="fa fa-search"></i></button>
+      <input class="" type="text" placeholder="Search.." name="search">
     </form>
   </div>
   <li class="divli"><a class="navtext" href="login" id="account_text">Not logged in :(</a></li>

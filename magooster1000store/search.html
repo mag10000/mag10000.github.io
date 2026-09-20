@@ -250,7 +250,12 @@ ul li {
 		const gamediv = document.createElement("div");
 		gamediv.id = "gamediv" + game_name;
 		gamediv.className = "gamediv";
-		gamediv.textContent = game_name + "  ";
+		if ("image_url" in props) {
+			gamediv.textContent = "<img src='" + props.image_url + "' height="48">";
+		} else {
+			gamediv.textContent = game_name + "  ";
+		}
+		
 		placetoadd.appendChild(gamediv);
 		
 		const button = document.createElement("button");

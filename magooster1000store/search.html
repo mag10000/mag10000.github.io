@@ -43,7 +43,9 @@ body {
   display: flex; /* Enables CSS flexbox */
   justify-content: center; /* Centers horizontally */
   align-items: center; /* Centers vertically */
-  /*height: 6vh; /* Full height to demonstrate vertical centering */}
+  /*height: 6vh; /* Full height to demonstrate vertical centering */
+  color: white;
+}
  
 .text {
  color: white;
@@ -236,7 +238,7 @@ ul li {
 		placetoadd.appendChild(gamediv);
 		
 		const button = document.createElement("button");
-		button.id = "gamebutton" + game_name;
+		button.id = "gamebutton" + game_name + "  ";
 		button.className = "buttons";
 		button.innerText = "Open";
 		button.onClick = "document.location = 'searchpage?id=" + game_id + "'";

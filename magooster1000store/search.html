@@ -46,6 +46,16 @@ body {
   /*height: 6vh; /* Full height to demonstrate vertical centering */
   color: white;
 }
+
+.gamediv {
+  display: flex; /* Enables CSS flexbox */
+  justify-content: center; /* Centers horizontally */
+  align-items: center; /* Centers vertically */
+  /*height: 6vh; /* Full height to demonstrate vertical centering */
+  color: white;
+  border: 2px solid #8451b6;
+  background-color : #3b384a;
+}
  
 .text {
  color: white;
@@ -233,7 +243,7 @@ ul li {
 		const placetoadd = document.getElementById("body");
 		const gamediv = document.createElement("div");
 		gamediv.id = "gamediv" + game_name;
-		gamediv.className = "container";
+		gamediv.className = "gamediv";
 		gamediv.textContent = game_name + "  ";
 		placetoadd.appendChild(gamediv);
 		

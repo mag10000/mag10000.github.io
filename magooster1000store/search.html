@@ -198,7 +198,8 @@ ul li {
 	console.log("----------")
 	console.log(is_app)
 	console.log("----------")
-  const query = urlParams.get('search')
+  let query = urlParams.get('search')
+  query = query.toLowerCase()
   document.getElementById('bigtext').innerText = "Search - " + query
 	if (is_app == "true") {
 		console.log("its a true")
@@ -209,7 +210,7 @@ ul li {
   		console.log("its a false")
 	}
 
-	const search_response = await fetch('https://api.trytalo.com/v1/game-channels?search=' + query.toLowerCase(), {
+	const search_response = await fetch('https://api.trytalo.com/v1/game-channels?search=' + query, {
     method: 'GET',
     headers: {
             		Authorization: "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOjIyNjgsImFwaSI6dHJ1ZSwiaWF0IjoxNzg5ODI0ODQ3fQ.xlfl7aFmnSWzcz7joyVnQzBjkFTA9yDpj8Ra_xCWpZI",
